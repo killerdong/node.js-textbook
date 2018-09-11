@@ -155,7 +155,7 @@ const p2 = Promise.resolve('2차');
 const p3 = Promise.resolve('3차');
 const p4 = Promise.resolve('4차');
 const p5 = Promise.resolve('5차');
-const p6 = Promise.reject('error');
+//const p6 = Promise.reject('error');
 // const p7 = () => new Promise((resolve, reject) => {
 //     throw new Error('test2');
 //     resolve('test');
@@ -199,16 +199,117 @@ const p6 = Promise.reject('error');
 //     console.log(err);
 // });
 
-(async function test() {
+// (async function test() {
     
-    try {
-        console.log(await p1);
-        console.log(await p2);
-        console.log(await p6);
-    } catch (ex) {
-        console.log(ex);
-    }
+//     try {
+//         console.log(await p1);
+//         console.log(await p2);
+//         console.log(await p6);
+//     } catch (ex) {
+//         console.log(ex);
+//     }
     
-})();
+// })();
 
+// 이터러블한 객체
+// 기본적으로 Arrays, String, Map, Set, DOM 데이터
+
+// const aaa = {
+//     data: [1,2,3,4,5,6,7,8],
+//     [Symbol.iterator]: function() {
+//         return {
+//             next: () => ({
+//                 done: !(this.data.length > 0),
+//                 value: this.data.pop()
+//             })
+//         };
+//     }
+// };
+
+// // for(const v of aaa) {
+// //     console.log(v);
+// // }
+
+// console.log([...aaa]);
+
+// 제너레이터
+// 이터러블한 객체를 더 쉽게 만들기 위해서 사용
+// async, await 는 내부적으로 제너레이터를 사용하여 구현
+// 
+// function* bbb() {
+//     const data = [1,2,3,4,5,6,7,8];
+
+//     while(data.length > 0) {
+//         yield data.pop();
+//     }
+// }
+
+// console.log([...bbb()]);
+
+function* genFuncWithReturn() {
+    yield 'a';
+    yield 'b';
+    return 'result';
+}
+
+
+const genObjWithReturn = genFuncWithReturn();
+
+console.log(genObjWithReturn.next());
+console.log(genObjWithReturn.next());
+console.log(genObjWithReturn.next());       //여기서는 리턴 값이 나오지만
+
+console.log([...genFuncWithReturn()]);      //여기서는 안나온다. 왜냐 하면 done이 true일 때 나오는 값을 무시하기 떄문에.
+
+
+function* foo() {
+    yield 'a';
+    yield 'b';
+    yield 'c';
+    yield 'd';
+    yield 'e';
+}
+
+function* bar() {
+    yield 'x';
+    foo(); // does nothing!
+    yield 'y';
+}
+
+console.log([...bar()]);
+
+function* bar2() {
+    yield 'x';
+    yield* foo();       //제너레이터를 제귀함수로 돌려서 결과값 전부를 소진하게 처리
+    yield 'y';
+}
+
+console.log([...bar2()]);
+
+
+function* dataConsumer() {
+    console.log('Started');
+    console.log(`1. ${yield}`); // (A)
+    console.log(`2. ${yield}`);
+    return 'result';
+}
+
+const genObj1 = dataConsumer();
+
+genObj1.next();
+genObj1.next('a');
+genObj1.next('b');
+genObj1.next('c');
+
+function* gen() {
+    // (A)
+    while (true) {
+        const input = yield; // (B)
+        console.log(input);
+    }
+}
+
+const obj = gen();
+obj.next('a');
+obj.next('b');
 
