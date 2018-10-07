@@ -1,0 +1,11 @@
+{
+  "name": "chapter6",
+  "version": "0.0.1",
+  "description": "챕터 6 내용 정리",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

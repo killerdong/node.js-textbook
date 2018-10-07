@@ -1,0 +1,26 @@
+{
+  "name": "chapter5",
+  "version": "0.0.1",
+  "description": "테스트 용",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/killerdong/node.js-textbook.git"
+  },
+  "keywords": [
+    "공부",
+    "node.js"
+  ],
+  "author": "Dongwoo Seo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/killerdong/node.js-textbook/issues"
+  },
+  "homepage": "https://github.com/killerdong/node.js-textbook#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
